@@ -3,6 +3,7 @@
 import random
 import numpy as np
 from collections import deque, namedtuple
+import torch
 
 # Define the structure of each experience tuple
 # Why namedtuple: Clean way to store (state, action, reward, next_state, done) together
@@ -93,6 +94,10 @@ class ReplayBuffer:
         ).float()       # Convert to float32 tensor (0.0 or 1.0)
 
         return (states, actions, rewards, next_states, dones)
+    
+    def __len__(self):
+        """Return current size of the buffer."""
+        return len(self.memory)
     
 # Test the replay buffer
 if __name__ == "__main__":
