@@ -1,0 +1,338 @@
+Starting extended training with 10,000 episodes...
+Starting DQN training with 10000 episodes...
+Environment: state_size=5, action_size=5
+DQNAgent initialized: state_size=5, action_size=5
+Hyperparameters: gamma=0.99, lr=0.0005, update_every=4
+Initializing QNetwork: state_size=5, action_size=5
+Initializing QNetwork: state_size=5, action_size=5
+ReplayBuffer initialized: size=100000, batch=64
+Starting training loop...
+Episode 100	Average Score (last 100): 280.01	Epsilon: 0.740
+Episode 200	Average Score (last 100): 332.11	Epsilon: 0.548
+Episode 300	Average Score (last 100): 351.48	Epsilon: 0.406
+Episode 400	Average Score (last 100): 367.41	Epsilon: 0.301
+Episode 500	Average Score (last 100): 391.10	Epsilon: 0.223
+Episode 600	Average Score (last 100): 363.67	Epsilon: 0.165
+Episode 700	Average Score (last 100): 380.60	Epsilon: 0.122
+Episode 800	Average Score (last 100): 347.02	Epsilon: 0.090
+Episode 900	Average Score (last 100): 348.17	Epsilon: 0.067
+Episode 1000	Average Score (last 100): 409.21	Epsilon: 0.050
+Episode 1100	Average Score (last 100): 401.55	Epsilon: 0.037
+Episode 1200	Average Score (last 100): 403.86	Epsilon: 0.027
+Episode 1300	Average Score (last 100): 381.84	Epsilon: 0.020
+Episode 1400	Average Score (last 100): 391.86	Epsilon: 0.015
+Episode 1500	Average Score (last 100): 403.72	Epsilon: 0.011
+Episode 1600	Average Score (last 100): 366.60	Epsilon: 0.010
+Episode 1700	Average Score (last 100): 394.60	Epsilon: 0.010
+Episode 1800	Average Score (last 100): 413.99	Epsilon: 0.010
+Episode 1900	Average Score (last 100): 371.43	Epsilon: 0.010
+Episode 2000	Average Score (last 100): 426.77	Epsilon: 0.010
+Episode 2100	Average Score (last 100): 385.56	Epsilon: 0.010
+Episode 2200	Average Score (last 100): 364.99	Epsilon: 0.010
+Episode 2300	Average Score (last 100): 389.99	Epsilon: 0.010
+Episode 2400	Average Score (last 100): 353.48	Epsilon: 0.010
+Episode 2500	Average Score (last 100): 366.06	Epsilon: 0.010
+Episode 2600	Average Score (last 100): 371.39	Epsilon: 0.010
+Episode 2700	Average Score (last 100): 368.94	Epsilon: 0.010
+Episode 2800	Average Score (last 100): 387.06	Epsilon: 0.010
+Episode 2900	Average Score (last 100): 335.44	Epsilon: 0.010
+Episode 3000	Average Score (last 100): 362.87	Epsilon: 0.010
+Episode 3100	Average Score (last 100): 377.33	Epsilon: 0.010
+Episode 3200	Average Score (last 100): 341.45	Epsilon: 0.010
+Episode 3300	Average Score (last 100): 381.19	Epsilon: 0.010
+Episode 3400	Average Score (last 100): 396.68	Epsilon: 0.010
+Episode 3500	Average Score (last 100): 396.94	Epsilon: 0.010
+Episode 3600	Average Score (last 100): 391.19	Epsilon: 0.010
+Episode 3700	Average Score (last 100): 388.03	Epsilon: 0.010
+Episode 3800	Average Score (last 100): 392.99	Epsilon: 0.010
+Episode 3900	Average Score (last 100): 356.49	Epsilon: 0.010
+Episode 4000	Average Score (last 100): 363.70	Epsilon: 0.010
+Episode 4100	Average Score (last 100): 354.72	Epsilon: 0.010
+Episode 4200	Average Score (last 100): 359.70	Epsilon: 0.010
+Episode 4300	Average Score (last 100): 377.12	Epsilon: 0.010
+Episode 4400	Average Score (last 100): 334.19	Epsilon: 0.010
+Episode 4500	Average Score (last 100): 379.58	Epsilon: 0.010
+Episode 4600	Average Score (last 100): 343.38	Epsilon: 0.010
+Episode 4700	Average Score (last 100): 339.16	Epsilon: 0.010
+Episode 4800	Average Score (last 100): 401.75	Epsilon: 0.010
+Episode 4900	Average Score (last 100): 340.20	Epsilon: 0.010
+Episode 5000	Average Score (last 100): 368.40	Epsilon: 0.010
+Episode 5100	Average Score (last 100): 350.01	Epsilon: 0.010
+Episode 5200	Average Score (last 100): 396.70	Epsilon: 0.010
+Episode 5300	Average Score (last 100): 363.57	Epsilon: 0.010
+Episode 5400	Average Score (last 100): 367.94	Epsilon: 0.010
+Episode 5500	Average Score (last 100): 394.80	Epsilon: 0.010
+Episode 5600	Average Score (last 100): 350.14	Epsilon: 0.010
+Episode 5700	Average Score (last 100): 373.49	Epsilon: 0.010
+Episode 5800	Average Score (last 100): 325.61	Epsilon: 0.010
+Episode 5900	Average Score (last 100): 339.81	Epsilon: 0.010
+Episode 6000	Average Score (last 100): 367.13	Epsilon: 0.010
+Episode 6100	Average Score (last 100): 352.56	Epsilon: 0.010
+Episode 6200	Average Score (last 100): 379.10	Epsilon: 0.010
+Episode 6300	Average Score (last 100): 389.70	Epsilon: 0.010
+Episode 6400	Average Score (last 100): 359.41	Epsilon: 0.010
+Episode 6500	Average Score (last 100): 332.16	Epsilon: 0.010
+Episode 6600	Average Score (last 100): 343.12	Epsilon: 0.010
+Episode 6700	Average Score (last 100): 386.80	Epsilon: 0.010
+Episode 6800	Average Score (last 100): 365.09	Epsilon: 0.010
+Episode 6900	Average Score (last 100): 359.20	Epsilon: 0.010
+Episode 7000	Average Score (last 100): 372.76	Epsilon: 0.010
+Episode 7100	Average Score (last 100): 365.84	Epsilon: 0.010
+Episode 7200	Average Score (last 100): 367.94	Epsilon: 0.010
+Episode 7300	Average Score (last 100): 374.71	Epsilon: 0.010
+Episode 7400	Average Score (last 100): 380.09	Epsilon: 0.010
+Episode 7500	Average Score (last 100): 384.23	Epsilon: 0.010
+Episode 7600	Average Score (last 100): 317.18	Epsilon: 0.010
+Episode 7700	Average Score (last 100): 358.77	Epsilon: 0.010
+Episode 7800	Average Score (last 100): 335.60	Epsilon: 0.010
+Episode 7900	Average Score (last 100): 373.72	Epsilon: 0.010
+Episode 8000	Average Score (last 100): 343.67	Epsilon: 0.010
+Episode 8100	Average Score (last 100): 352.52	Epsilon: 0.010
+Episode 8200	Average Score (last 100): 363.20	Epsilon: 0.010
+Episode 8300	Average Score (last 100): 378.08	Epsilon: 0.010
+Episode 8400	Average Score (last 100): 387.95	Epsilon: 0.010
+Episode 8500	Average Score (last 100): 365.17	Epsilon: 0.010
+Episode 8600	Average Score (last 100): 384.67	Epsilon: 0.010
+Episode 8700	Average Score (last 100): 385.26	Epsilon: 0.010
+Episode 8800	Average Score (last 100): 381.96	Epsilon: 0.010
+Episode 8900	Average Score (last 100): 378.00	Epsilon: 0.010
+Episode 9000	Average Score (last 100): 344.44	Epsilon: 0.010
+Episode 9100	Average Score (last 100): 354.18	Epsilon: 0.010
+Episode 9200	Average Score (last 100): 332.67	Epsilon: 0.010
+Episode 9300	Average Score (last 100): 357.51	Epsilon: 0.010
+Episode 9400	Average Score (last 100): 368.88	Epsilon: 0.010
+Episode 9500	Average Score (last 100): 361.27	Epsilon: 0.010
+Episode 9600	Average Score (last 100): 385.85	Epsilon: 0.010
+Episode 9700	Average Score (last 100): 375.56	Epsilon: 0.010
+Episode 9800	Average Score (last 100): 361.76	Epsilon: 0.010
+Episode 9900	Average Score (last 100): 345.08	Epsilon: 0.010
+Episode 10000	Average Score (last 100): 373.24	Epsilon: 0.010
+Training completed!
+Model saved as dqn_customer_agent.pth
+Training completed. Running analysis...
+DQNAgent initialized: state_size=5, action_size=5
+Hyperparameters: gamma=0.99, lr=0.0005, update_every=4
+Initializing QNetwork: state_size=5, action_size=5
+Initializing QNetwork: state_size=5, action_size=5
+ReplayBuffer initialized: size=100000, batch=64
+Trained model loaded successfully!
+
+Testing agent performance on 200 customers...
+
+=== PERFORMANCE SUMMARY ===
+Average Revenue per Customer: $365.68
+Average Acceptance Rate: 0.631
+Total Offers Made: 2400
+Offer Distribution: {0: 419, 1: 62, 2: 2, 3: 1864, 4: 53}
+
+=== CUSTOMER SEGMENT ANALYSIS ===
+
+High Loyalty Customer Analysis:
+  Offers typically chosen: {0: 0, 1: 0, 2: 0, 3: 20, 4: 0}
+
+Low Loyalty Customer Analysis:
+  Offers typically chosen: {0: 0, 1: 0, 2: 0, 3: 20, 4: 0}
+
+Inactive Customer Analysis:
+  Offers typically chosen: {0: 0, 1: 0, 2: 0, 3: 20, 4: 0}
+
+High Spender Customer Analysis:
+  Offers typically chosen: {0: 0, 1: 0, 2: 0, 3: 20, 4: 0}
+DQNAgent initialized: state_size=5, action_size=5
+Hyperparameters: gamma=0.99, lr=0.0005, update_every=4
+Initializing QNetwork: state_size=5, action_size=5
+Initializing QNetwork: state_size=5, action_size=5
+ReplayBuffer initialized: size=100000, batch=64
+Trained model loaded successfully!
+
+=== STATE-ACTION PREFERENCE ANALYSIS ===
+
+=== SIMULATING HIGH-VALUE CUSTOMER JOURNEY ===
+Starting state: [ 0.31943923 66.094345   -1.          0.          2.        ]
+Step 0: State=[ 0.31943923 66.094345   -1.        ] (Loyalty=0.32, Spend=66, Recency=2.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.30
+  -> Total Revenue So Far: $0.00
+
+Step 1: State=[ 0.29943922 66.094345    3.        ] (Loyalty=0.30, Spend=66, Recency=3.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $49.57, Accepted: True, Loyalty: 0.36
+  -> Total Revenue So Far: $49.57
+
+Step 2: State=[ 0.35943922 66.094345    3.        ] (Loyalty=0.36, Spend=66, Recency=0.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.34
+  -> Total Revenue So Far: $49.57
+
+Step 3: State=[ 0.3394392 66.094345   3.       ] (Loyalty=0.34, Spend=66, Recency=1.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.32
+  -> Total Revenue So Far: $49.57
+
+Step 4: State=[ 0.31943923 66.094345    3.        ] (Loyalty=0.32, Spend=66, Recency=2.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.30
+  -> Total Revenue So Far: $49.57
+
+Step 5: State=[ 0.29943922 66.094345    3.        ] (Loyalty=0.30, Spend=66, Recency=3.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $49.57, Accepted: True, Loyalty: 0.36
+  -> Total Revenue So Far: $99.14
+
+Step 6: State=[ 0.35943922 66.094345    3.        ] (Loyalty=0.36, Spend=66, Recency=0.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $49.57, Accepted: True, Loyalty: 0.42
+  -> Total Revenue So Far: $148.71
+
+Step 7: State=[ 0.41943923 66.094345    3.        ] (Loyalty=0.42, Spend=66, Recency=0.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $49.57, Accepted: True, Loyalty: 0.48
+  -> Total Revenue So Far: $198.28
+
+Step 8: State=[ 0.47943923 66.094345    3.        ] (Loyalty=0.48, Spend=66, Recency=0.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.46
+  -> Total Revenue So Far: $198.28
+
+Step 9: State=[ 0.45943922 66.094345    3.        ] (Loyalty=0.46, Spend=66, Recency=1.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $49.57, Accepted: True, Loyalty: 0.52
+  -> Total Revenue So Far: $247.85
+
+Step 10: State=[ 0.5194392 66.094345   3.       ] (Loyalty=0.52, Spend=66, Recency=0.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.50
+  -> Total Revenue So Far: $247.85
+
+Step 11: State=[ 0.4994392 66.094345   3.       ] (Loyalty=0.50, Spend=66, Recency=1.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $49.57, Accepted: True, Loyalty: 0.56
+  -> Total Revenue So Far: $297.42
+
+
+=== SIMULATING LOW-VALUE CUSTOMER JOURNEY ===
+Starting state: [ 0.31943923 66.094345   -1.          0.          2.        ]
+Step 0: State=[ 0.31943923 66.094345   -1.        ] (Loyalty=0.32, Spend=66, Recency=2.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.30
+  -> Total Revenue So Far: $0.00
+
+Step 1: State=[ 0.29943922 66.094345    3.        ] (Loyalty=0.30, Spend=66, Recency=3.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $49.57, Accepted: True, Loyalty: 0.36
+  -> Total Revenue So Far: $49.57
+
+Step 2: State=[ 0.35943922 66.094345    3.        ] (Loyalty=0.36, Spend=66, Recency=0.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.34
+  -> Total Revenue So Far: $49.57
+
+Step 3: State=[ 0.3394392 66.094345   3.       ] (Loyalty=0.34, Spend=66, Recency=1.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.32
+  -> Total Revenue So Far: $49.57
+
+Step 4: State=[ 0.31943923 66.094345    3.        ] (Loyalty=0.32, Spend=66, Recency=2.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.30
+  -> Total Revenue So Far: $49.57
+
+Step 5: State=[ 0.29943922 66.094345    3.        ] (Loyalty=0.30, Spend=66, Recency=3.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $49.57, Accepted: True, Loyalty: 0.36
+  -> Total Revenue So Far: $99.14
+
+Step 6: State=[ 0.35943922 66.094345    3.        ] (Loyalty=0.36, Spend=66, Recency=0.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $49.57, Accepted: True, Loyalty: 0.42
+  -> Total Revenue So Far: $148.71
+
+Step 7: State=[ 0.41943923 66.094345    3.        ] (Loyalty=0.42, Spend=66, Recency=0.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $49.57, Accepted: True, Loyalty: 0.48
+  -> Total Revenue So Far: $198.28
+
+Step 8: State=[ 0.47943923 66.094345    3.        ] (Loyalty=0.48, Spend=66, Recency=0.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.46
+  -> Total Revenue So Far: $198.28
+
+Step 9: State=[ 0.45943922 66.094345    3.        ] (Loyalty=0.46, Spend=66, Recency=1.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $49.57, Accepted: True, Loyalty: 0.52
+  -> Total Revenue So Far: $247.85
+
+Step 10: State=[ 0.5194392 66.094345   3.       ] (Loyalty=0.52, Spend=66, Recency=0.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.50
+  -> Total Revenue So Far: $247.85
+
+Step 11: State=[ 0.4994392 66.094345   3.       ] (Loyalty=0.50, Spend=66, Recency=1.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $49.57, Accepted: True, Loyalty: 0.56
+  -> Total Revenue So Far: $297.42
+
+
+=== SIMULATING MODERATE CUSTOMER - RECENTLY REJECTED JOURNEY ===
+Starting state: [ 0.31943923 66.094345   -1.          0.          2.        ]
+Step 0: State=[ 0.31943923 66.094345   -1.        ] (Loyalty=0.32, Spend=66, Recency=2.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.30
+  -> Total Revenue So Far: $0.00
+
+Step 1: State=[ 0.29943922 66.094345    3.        ] (Loyalty=0.30, Spend=66, Recency=3.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $49.57, Accepted: True, Loyalty: 0.36
+  -> Total Revenue So Far: $49.57
+
+Step 2: State=[ 0.35943922 66.094345    3.        ] (Loyalty=0.36, Spend=66, Recency=0.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.34
+  -> Total Revenue So Far: $49.57
+
+Step 3: State=[ 0.3394392 66.094345   3.       ] (Loyalty=0.34, Spend=66, Recency=1.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.32
+  -> Total Revenue So Far: $49.57
+
+Step 4: State=[ 0.31943923 66.094345    3.        ] (Loyalty=0.32, Spend=66, Recency=2.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.30
+  -> Total Revenue So Far: $49.57
+
+Step 5: State=[ 0.29943922 66.094345    3.        ] (Loyalty=0.30, Spend=66, Recency=3.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $49.57, Accepted: True, Loyalty: 0.36
+  -> Total Revenue So Far: $99.14
+
+Step 6: State=[ 0.35943922 66.094345    3.        ] (Loyalty=0.36, Spend=66, Recency=0.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $49.57, Accepted: True, Loyalty: 0.42
+  -> Total Revenue So Far: $148.71
+
+Step 7: State=[ 0.41943923 66.094345    3.        ] (Loyalty=0.42, Spend=66, Recency=0.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $49.57, Accepted: True, Loyalty: 0.48
+  -> Total Revenue So Far: $198.28
+
+Step 8: State=[ 0.47943923 66.094345    3.        ] (Loyalty=0.48, Spend=66, Recency=0.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.46
+  -> Total Revenue So Far: $198.28
+
+Step 9: State=[ 0.45943922 66.094345    3.        ] (Loyalty=0.46, Spend=66, Recency=1.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $49.57, Accepted: True, Loyalty: 0.52
+  -> Total Revenue So Far: $247.85
+
+Step 10: State=[ 0.5194392 66.094345   3.       ] (Loyalty=0.52, Spend=66, Recency=0.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.50
+  -> Total Revenue So Far: $247.85
+
+Step 11: State=[ 0.4994392 66.094345   3.       ] (Loyalty=0.50, Spend=66, Recency=1.0)
+  -> Action: 3 (BOGO)
+  -> Revenue: $49.57, Accepted: True, Loyalty: 0.56
+  -> Total Revenue So Far: $297.42
+
+All analysis completed!

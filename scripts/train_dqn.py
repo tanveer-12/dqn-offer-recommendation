@@ -97,27 +97,34 @@ def main():
 
 
 def plot_learning_curve(scores, num_episodes):
-    """
-    Plot the learning curve showing improvement over episodes.
-    
-    Why this matters: Shows if agent is learning and improving over time
-    X-axis: Episode number, Y-axis: Average revenue per customer
-    """
-    # Calculate moving average to smooth out random fluctuations
+    """Plot the learning curve starting from 0 for better interpretation."""
+    # Calculate moving average
     window_size = 100
     if len(scores) >= window_size:
         moving_avg = []
-        for i in range(window_size, len(scores) + 1):
-            # Calculate average of last 100 episodes up to current episode
-            moving_avg.append(np.mean(scores[i-window_size:i]))
+        episode_numbers = []
         
-        # Create the plot
+        for i in range(window_size, len(scores) + 1):
+            moving_avg.append(np.mean(scores[i-window_size:i]))
+            episode_numbers.append(i)  # Start from episode number, not 0
+        
         plt.figure(figsize=(12, 6))
-        plt.plot(range(window_size, num_episodes + 1), moving_avg)
+        plt.plot(episode_numbers, moving_avg, linewidth=2, color='blue')
         plt.title('DQN Training: Average Revenue per Customer (Moving Average)')
         plt.xlabel('Episode')
-        plt.ylabel('Average Revenue per Customer')
-        plt.grid(True)
+        plt.ylabel('Average Revenue per Customer ($)')
+        plt.grid(True, alpha=0.3)
+        
+        # Start y-axis from 0 for better interpretation
+        plt.ylim(bottom=0)
+        
+        # Add horizontal line showing initial performance
+        if len(scores) > 0:
+            initial_avg = np.mean(scores[:100])  # First 100 episodes
+            plt.axhline(y=initial_avg, color='red', linestyle='--', 
+                       label=f'Initial Average: ${initial_avg:.2f}', alpha=0.7)
+        
+        plt.legend()
         plt.savefig('dqn_training_curve.png', dpi=300, bbox_inches='tight')
         plt.show()
     else:
