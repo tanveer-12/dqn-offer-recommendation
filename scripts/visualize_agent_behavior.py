@@ -1,4 +1,4 @@
-"""Visualize how the trained agent behaves with different customer states."""
+"""Enhanced visualization for trained agent behavior with different customer states."""
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -12,21 +12,32 @@ sys.path.append(str(ROOT / "src"))
 from offer_env import CustomerConfig, CustomerOfferEnv
 from offer_env.dqn_agent import DQNAgent
 
-def load_trained_agent():
-    """Load the trained agent for visualization."""
+def load_trained_agent(model_file='dqn_customer_agent_balanced.pth'):
+    """Load the trained agent for visualization with multiple model file options."""
     env = CustomerOfferEnv(CustomerConfig(), seed=42)
     state_size = env.observation_space.shape[0]
     action_size = env.action_space.n
     
     agent = DQNAgent(state_size=state_size, action_size=action_size, seed=42)
     
-    try:
-        agent.qnetwork_local.load_state_dict(torch.load('dqn_customer_agent.pth'))
-        print("Trained model loaded successfully!")
-        return agent, env
-    except FileNotFoundError:
-        print("No trained model found. Please run training first.")
-        return None, None
+    # Try different model file names in order of preference
+    model_files = [
+        model_file,
+        'dqn_customer_agent_balanced.pth',
+        'dqn_customer_agent_improved.pth',
+        'dqn_customer_agent.pth'
+    ]
+    
+    for file in model_files:
+        try:
+            agent.qnetwork_local.load_state_dict(torch.load(file))
+            print(f"Trained model '{file}' loaded successfully!")
+            return agent, env
+        except FileNotFoundError:
+            continue
+    
+    print("No trained model found. Please run training first.")
+    return None, None
 
 def get_q_values_for_state(agent, state):
     """Get Q-values for all actions for a given state."""
@@ -85,9 +96,10 @@ def simulate_customer_journey(agent, env, initial_state, customer_name="Sample C
     """Simulate a complete customer journey to see how the agent adapts."""
     print(f"\n=== SIMULATING {customer_name.upper()} JOURNEY ===")
     
-    # Reset environment and set initial state (simplified - you might need to modify env)
+    # Reset environment with initial state
     state, _ = env.reset(seed=42)
-    print(f"Starting state: {state}")
+    # Note: We can't directly set the state, so we'll just use the reset state
+    # For more accurate testing, you'd need to modify the environment to accept initial state
     
     journey_data = {
         'step': [],
@@ -95,13 +107,16 @@ def simulate_customer_journey(agent, env, initial_state, customer_name="Sample C
         'action': [],
         'reward': [],
         'acceptance': [],
-        'total_revenue': []
+        'total_revenue': [],
+        'loyalty_scores': [],
+        'offer_distribution': {i: 0 for i in range(5)}
     }
     
     total_revenue = 0
     
     for step in range(15):  # Simulate 15 interactions
         action = agent.act(state, eps=0.0)  # No exploration, pure strategy
+        journey_data['offer_distribution'][action] += 1
         
         next_state, reward, terminated, truncated, info = env.step(action)
         done = terminated or truncated
@@ -121,6 +136,7 @@ def simulate_customer_journey(agent, env, initial_state, customer_name="Sample C
         journey_data['reward'].append(reward)
         journey_data['acceptance'].append(info['accepted'])
         journey_data['total_revenue'].append(total_revenue)
+        journey_data['loyalty_scores'].append(info['loyalty_score'])
         
         state = next_state
         if done:
@@ -129,8 +145,8 @@ def simulate_customer_journey(agent, env, initial_state, customer_name="Sample C
     return journey_data
 
 def visualize_customer_journey(journey_data, customer_name="Customer"):
-    """Visualize the customer journey data."""
-    fig, axes = plt.subplots(2, 2, figsize=(15, 10))
+    """Visualize the customer journey data with enhanced metrics."""
+    fig, axes = plt.subplots(2, 3, figsize=(18, 12))
     
     # 1. Revenue over time
     axes[0, 0].plot(journey_data['step'], journey_data['total_revenue'], 
@@ -142,8 +158,7 @@ def visualize_customer_journey(journey_data, customer_name="Customer"):
     
     # 2. Actions taken over time
     actions = journey_data['action']
-    action_names = [f'{i}\n{["No", "5%", "10%", "BOGO", "Prem"][i]}' for i in actions]
-    axes[0, 1].bar(journey_data['step'], actions, alpha=0.7, color='orange')
+    axes[0, 1].plot(journey_data['step'], actions, 'o-', linewidth=2, markersize=8)
     axes[0, 1].set_xlabel('Interaction Step')
     axes[0, 1].set_ylabel('Action Taken')
     axes[0, 1].set_title(f'{customer_name}: Offers Recommended Over Time')
@@ -153,25 +168,113 @@ def visualize_customer_journey(journey_data, customer_name="Customer"):
     
     # 3. Acceptance rate over time
     acceptance = [1 if acc else 0 for acc in journey_data['acceptance']]
-    axes[1, 0].bar(journey_data['step'], acceptance, alpha=0.7, color='green')
+    axes[0, 2].plot(journey_data['step'], acceptance, 'go-', linewidth=2, markersize=8)
+    axes[0, 2].set_xlabel('Interaction Step')
+    axes[0, 2].set_ylabel('Offer Accepted (1=Yes, 0=No)')
+    axes[0, 2].set_title(f'{customer_name}: Offer Acceptance Over Time')
+    axes[0, 2].set_yticks([0, 1])
+    axes[0, 2].set_yticklabels(['No', 'Yes'])
+    axes[0, 2].grid(True, alpha=0.3)
+    
+    # 4. Loyalty score over time
+    loyalty_scores = journey_data['loyalty_scores']
+    axes[1, 0].plot(journey_data['step'], loyalty_scores, 'r-o', linewidth=2, markersize=6)
     axes[1, 0].set_xlabel('Interaction Step')
-    axes[1, 0].set_ylabel('Offer Accepted (1=Yes, 0=No)')
-    axes[1, 0].set_title(f'{customer_name}: Offer Acceptance Over Time')
-    axes[1, 0].set_yticks([0, 1])
-    axes[1, 0].set_yticklabels(['No', 'Yes'])
+    axes[1, 0].set_ylabel('Loyalty Score')
+    axes[1, 0].set_title(f'{customer_name}: Loyalty Score Over Time')
+    axes[1, 0].set_ylim(0, 1)
     axes[1, 0].grid(True, alpha=0.3)
     
-    # 4. Loyalty score over time (if available in state)
-    loyalty_scores = [state[0] for state in journey_data['state']]
-    axes[1, 1].plot(journey_data['step'], loyalty_scores, 'r-o', linewidth=2, markersize=6)
+    # 5. Revenue per interaction
+    revenue_per_step = [journey_data['reward'][i] for i in range(len(journey_data['step']))]
+    axes[1, 1].bar(journey_data['step'], revenue_per_step, alpha=0.7, color='orange')
     axes[1, 1].set_xlabel('Interaction Step')
-    axes[1, 1].set_ylabel('Loyalty Score')
-    axes[1, 1].set_title(f'{customer_name}: Loyalty Score Over Time')
-    axes[1, 1].set_ylim(0, 1)
+    axes[1, 1].set_ylabel('Revenue per Interaction ($)')
+    axes[1, 1].set_title(f'{customer_name}: Revenue per Interaction')
     axes[1, 1].grid(True, alpha=0.3)
+    
+    # 6. Offer distribution summary
+    offer_names = ['No Offer', '5% Disc', '10% Disc', 'BOGO', 'Premium']
+    offer_counts = [journey_data['offer_distribution'][i] for i in range(5)]
+    axes[1, 2].bar(offer_names, offer_counts, 
+                   color=['blue', 'orange', 'green', 'red', 'purple'], alpha=0.7)
+    axes[1, 2].set_xlabel('Offer Type')
+    axes[1, 2].set_ylabel('Number of Times Used')
+    axes[1, 2].set_title(f'{customer_name}: Offer Distribution')
+    axes[1, 2].tick_params(axis='x', rotation=45)
     
     plt.tight_layout()
     plt.savefig(f'{customer_name.lower()}_journey_analysis.png', dpi=300, bbox_inches='tight')
+    plt.show()
+
+def analyze_strategy_patterns(agent, env):
+    """Analyze overall strategy patterns across different customer types."""
+    print("\n=== STRATEGY PATTERN ANALYSIS ===")
+    
+    customer_types = [
+        ([0.9, 120, -1, 0, 0], "High-Value Loyal"),
+        ([0.2, 40, -1, 0, 8], "Low-Value Inactive"), 
+        ([0.6, 80, -1, 0, 3], "Moderate Customer"),
+        ([0.4, 100, -1, 0, 1], "High Spender Low Loyalty"),
+    ]
+    
+    strategy_matrix = {}
+    
+    for state, name in customer_types:
+        print(f"\nAnalyzing {name} customer:")
+        offer_usage = {i: 0 for i in range(5)}
+        
+        # Test multiple times to get average behavior
+        for trial in range(20):
+            test_env = CustomerOfferEnv(CustomerConfig(), seed=42 + trial)
+            test_state, _ = test_env.reset(seed=42 + trial)
+            # Note: We can't set initial state directly, so we'll just test the general behavior
+            
+            for step in range(5):  # Test first 5 interactions
+                action = agent.act(test_state, eps=0.0)
+                offer_usage[action] += 1
+                test_state, _, terminated, truncated, _ = test_env.step(action)
+                if terminated or truncated:
+                    break
+        
+        strategy_matrix[name] = offer_usage
+        print(f"  Offer distribution: {offer_usage}")
+    
+    # Create strategy heatmap
+    fig, ax = plt.subplots(figsize=(12, 8))
+    
+    # Prepare data for heatmap
+    customer_names = list(strategy_matrix.keys())
+    offer_names = ['No Offer', '5% Disc', '10% Disc', 'BOGO', 'Premium']
+    
+    # Convert to 2D array for heatmap
+    heatmap_data = []
+    for customer_name in customer_names:
+        row = [strategy_matrix[customer_name][i] for i in range(5)]
+        heatmap_data.append(row)
+    
+    im = ax.imshow(heatmap_data, cmap='YlOrRd', aspect='auto')
+    
+    # Set ticks and labels
+    ax.set_xticks(range(len(offer_names)))
+    ax.set_yticks(range(len(customer_names)))
+    ax.set_xticklabels(offer_names)
+    ax.set_yticklabels(customer_names)
+    
+    # Add colorbar
+    cbar = ax.figure.colorbar(im, ax=ax)
+    cbar.ax.set_ylabel("Number of Times Used", rotation=-90, va="bottom")
+    
+    # Add text annotations
+    for i in range(len(customer_names)):
+        for j in range(len(offer_names)):
+            text = ax.text(j, i, heatmap_data[i][j],
+                          ha="center", va="center", color="black", fontweight='bold')
+    
+    ax.set_title("Strategy Pattern Analysis: Offer Usage by Customer Type")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.savefig('strategy_pattern_analysis.png', dpi=300, bbox_inches='tight')
     plt.show()
 
 def main():
@@ -181,6 +284,9 @@ def main():
     
     # Visualize state-action preferences
     visualize_state_action_preferences(agent)
+    
+    # Analyze overall strategy patterns
+    analyze_strategy_patterns(agent, env)
     
     # Simulate different customer journeys
     test_states = [

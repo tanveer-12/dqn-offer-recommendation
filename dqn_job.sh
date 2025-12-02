@@ -3,9 +3,9 @@
 #SBATCH -n 1
 #SBATCH -c 8
 #SBATCH --mem=32g
-#SBATCH -J "dqn"
-#SBATCH -o dqn%j.out
-#SBATCH -e dqn%j.err
+#SBATCH -J "dqn3"
+#SBATCH -o dqn-balanced-%j.out
+#SBATCH -e dqn-balanced-%j.err
 #SBATCH -p academic
 #SBATCH -t 48:00:00
 #SBATCH --gres=gpu:1
@@ -21,12 +21,12 @@ conda activate myenv
 
 # Run extended training with 10,000 episodes
 echo "Starting extended training with 10,000 episodes..."
-python scripts/train_dqn.py --episodes 10000 --max_t 100 --eps_decay 0.997 --eps_end 0.01
+python scripts/train_balanced.py --episodes 10000 
 
 
 # After training, run analysis scripts
 echo "Training completed. Running analysis..."
-python scripts/analyze_results.py
+python scripts/analyze_balanced.py
 python scripts/visualize_agent_behavior.py
 
 echo "All analysis completed!"
