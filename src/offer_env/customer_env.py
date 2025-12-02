@@ -69,11 +69,11 @@ class CustomerOfferEnv(gym.Env):
         accepted = self._did_accept_offer(action)
         purchase_amount = self.state.average_spend if accepted else 0.0
         
-        # Calculate immediate reward
-        immediate_revenue = purchase_amount * (1.0 - self.config.offer_cost[action])
+        # # Calculate immediate reward
+        # immediate_revenue = purchase_amount * (1.0 - self.config.offer_cost[action])
         
         # Calculate final reward that includes long-term value
-        reward = self._calculate_final_reward(action, purchase_amount, accepted, immediate_revenue)
+        reward = self._calculate_improved_reward(action, purchase_amount, accepted)
         
         self._update_state_after_action(action, accepted)
         self.timestep += 1
@@ -83,38 +83,78 @@ class CustomerOfferEnv(gym.Env):
         info = self._get_info(accepted=accepted, purchase_amount=purchase_amount)
         return obs, float(reward), terminated, truncated, info
 
-    def _calculate_final_reward(self, action: int, purchase_amount: float, accepted: bool, immediate_revenue: float):
-        """Calculate reward with long-term considerations."""
+    # def _calculate_final_reward(self, action: int, purchase_amount: float, accepted: bool, immediate_revenue: float):
+    #     """Calculate reward with long-term considerations."""
+    #     if not accepted:
+    #         return 0.0  # No immediate reward for rejected offers
+        
+    #     # Base revenue
+    #     reward = immediate_revenue
+        
+    #     # Offer efficiency bonus/penalty
+    #     offer_cost = self.config.offer_cost[action]
+        
+    #     # Penalty for using expensive offers when cheaper ones would work
+    #     if offer_cost > 0.15:  # BOGO or Premium
+    #         # Heavy penalty if customer has low spend or low loyalty
+    #         if self.state.average_spend < 80 or self.state.loyalty_score < 0.4:
+    #             reward -= offer_cost * 100  # Significant penalty
+    #         elif self.state.average_spend < 120 and action == 3:  # BOGO on low-medium value
+    #             reward -= offer_cost * 50  # Medium penalty
+        
+    #     # Bonus for cost-effective offers
+    #     elif action == 0:  # No offer - most profitable
+    #         if self.state.loyalty_score > 0.6:  # High loyalty customers
+    #             reward += 10.0
+    #     elif action == 1:  # 5% discount
+    #         if self.state.average_spend > 50 and self.state.loyalty_score < 0.5:
+    #             reward += 3.0  # Good for moderate customers
+        
+    #     # Loyalty building component
+    #     loyalty_bonus = (self.state.loyalty_score - 0.5) * 15.0  # Bonus for maintaining high loyalty
+    #     reward += max(0, loyalty_bonus)
+        
+    #     return reward
+
+    # AFTER DQN 3 BALANCED TRAINING, FOR TRAIN_FINAL TRAINING
+    def _calculate_improved_reward(self, action: int, purchase_amount: float, accepted: bool):
+        """Improved reward with better cost-effectiveness and customer value focus."""
         if not accepted:
-            return 0.0  # No immediate reward for rejected offers
+            return 0.0
         
-        # Base revenue
-        reward = immediate_revenue
+        # Base revenue calculation
+        base_revenue = purchase_amount * (1.0 - self.config.offer_cost[action])
         
-        # Offer efficiency bonus/penalty
+        # Cost-effectiveness penalty for expensive offers
         offer_cost = self.config.offer_cost[action]
         
-        # Penalty for using expensive offers when cheaper ones would work
-        if offer_cost > 0.15:  # BOGO or Premium
-            # Heavy penalty if customer has low spend or low loyalty
-            if self.state.average_spend < 80 or self.state.loyalty_score < 0.4:
-                reward -= offer_cost * 100  # Significant penalty
-            elif self.state.average_spend < 120 and action == 3:  # BOGO on low-medium value
-                reward -= offer_cost * 50  # Medium penalty
+        # Penalty for using expensive offers inappropriately
+        penalty = 0.0
+        if action == 3 and self.state.loyalty_score > 0.5:  # BOGO for high loyalty
+            penalty = 20.0
+        elif action == 3 and self.state.average_spend < 70:  # BOGO for low spend
+            penalty = 30.0
+        elif action == 4 and self.state.loyalty_score < 0.3:  # Premium for low loyalty
+            penalty = 15.0
+        elif action == 2 and self.state.loyalty_score > 0.7:  # 10% for high loyalty
+            penalty = 10.0
         
-        # Bonus for cost-effective offers
-        elif action == 0:  # No offer - most profitable
-            if self.state.loyalty_score > 0.6:  # High loyalty customers
-                reward += 10.0
-        elif action == 1:  # 5% discount
-            if self.state.average_spend > 50 and self.state.loyalty_score < 0.5:
-                reward += 3.0  # Good for moderate customers
+        # Bonus for appropriate offer usage
+        bonus = 0.0
+        if action == 0 and self.state.loyalty_score > 0.6:  # No offer for high loyalty
+            bonus = 8.0
+        elif action == 4 and self.state.loyalty_score > 0.6:  # Premium for high loyalty
+            bonus = 12.0
+        elif action == 1 and self.state.loyalty_score < 0.4 and self.state.loyalty_score > 0.2:  # 5% for moderate loyalty
+            bonus = 5.0
+        elif action == 3 and self.state.loyalty_score < 0.3 and self.state.recency_of_purchase > 5:  # BOGO for inactive low loyalty
+            bonus = 10.0
         
         # Loyalty building component
-        loyalty_bonus = (self.state.loyalty_score - 0.5) * 15.0  # Bonus for maintaining high loyalty
-        reward += max(0, loyalty_bonus)
+        loyalty_bonus = max(0, (self.state.loyalty_score - 0.5) * 10.0)
         
-        return reward
+        total_reward = base_revenue - penalty + bonus + loyalty_bonus
+        return total_reward
 
     # def _calculate_cost_penalty(self, action:int, purchase_amount:float):
     #     """Penalize expensive offers that don't generate sufficient revenue"""

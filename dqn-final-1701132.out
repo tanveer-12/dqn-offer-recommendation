@@ -1,0 +1,269 @@
+Starting extended training with 10,000 episodes...
+Starting final optimized DQN training with 10000 episodes...
+Environment: state_size=5, action_size=5
+DQNAgent initialized: state_size=5, action_size=5
+Hyperparameters: gamma=0.95, lr=0.001, update_every=2
+Initializing QNetwork: state_size=5, action_size=5
+Initializing QNetwork: state_size=5, action_size=5
+ReplayBuffer initialized: size=50000, batch=32
+Starting training loop...
+Episode 500	Avg Score: 341.49	Eps: 0.135
+  Offer %: No=11.9%, 5%=14.3%, 10%=52.0%, BOGO=9.4%, Premium=12.3%
+Episode 1000	Avg Score: 305.08	Eps: 0.100
+  Offer %: No=9.6%, 5%=12.2%, 10%=65.8%, BOGO=2.0%, Premium=10.4%
+Episode 1500	Avg Score: 343.47	Eps: 0.100
+  Offer %: No=13.1%, 5%=15.3%, 10%=60.1%, BOGO=3.5%, Premium=8.0%
+Episode 2000	Avg Score: 333.70	Eps: 0.100
+  Offer %: No=16.3%, 5%=17.1%, 10%=52.5%, BOGO=7.7%, Premium=6.4%
+Episode 2500	Avg Score: 268.10	Eps: 0.100
+  Offer %: No=12.2%, 5%=22.9%, 10%=50.3%, BOGO=9.9%, Premium=4.8%
+Episode 3000	Avg Score: 283.90	Eps: 0.100
+  Offer %: No=14.7%, 5%=26.9%, 10%=46.2%, BOGO=5.9%, Premium=6.4%
+Episode 3500	Avg Score: 327.35	Eps: 0.100
+  Offer %: No=20.7%, 5%=23.8%, 10%=43.3%, BOGO=5.8%, Premium=6.4%
+Episode 4000	Avg Score: 299.81	Eps: 0.100
+  Offer %: No=28.7%, 5%=13.9%, 10%=42.7%, BOGO=7.5%, Premium=7.3%
+Episode 4500	Avg Score: 321.98	Eps: 0.100
+  Offer %: No=22.2%, 5%=20.6%, 10%=38.6%, BOGO=10.9%, Premium=7.6%
+Episode 5000	Avg Score: 305.40	Eps: 0.100
+  Offer %: No=15.8%, 5%=24.2%, 10%=44.1%, BOGO=6.1%, Premium=9.8%
+Episode 5500	Avg Score: 327.08	Eps: 0.100
+  Offer %: No=19.2%, 5%=18.8%, 10%=34.1%, BOGO=6.6%, Premium=21.3%
+Episode 6000	Avg Score: 292.51	Eps: 0.100
+  Offer %: No=23.4%, 5%=21.8%, 10%=37.9%, BOGO=10.0%, Premium=7.0%
+Episode 6500	Avg Score: 287.43	Eps: 0.100
+  Offer %: No=27.1%, 5%=12.1%, 10%=41.9%, BOGO=9.4%, Premium=9.5%
+Episode 7000	Avg Score: 304.74	Eps: 0.100
+  Offer %: No=28.0%, 5%=12.0%, 10%=33.4%, BOGO=12.3%, Premium=14.3%
+Episode 7500	Avg Score: 322.91	Eps: 0.100
+  Offer %: No=25.1%, 5%=19.0%, 10%=39.8%, BOGO=12.7%, Premium=3.5%
+Episode 8000	Avg Score: 296.79	Eps: 0.100
+  Offer %: No=18.9%, 5%=20.9%, 10%=38.0%, BOGO=12.2%, Premium=10.1%
+Episode 8500	Avg Score: 309.30	Eps: 0.100
+  Offer %: No=18.5%, 5%=23.2%, 10%=34.1%, BOGO=10.6%, Premium=13.6%
+Episode 9000	Avg Score: 291.63	Eps: 0.100
+  Offer %: No=29.8%, 5%=13.0%, 10%=36.0%, BOGO=8.4%, Premium=12.8%
+Episode 9500	Avg Score: 303.63	Eps: 0.100
+  Offer %: No=18.5%, 5%=14.9%, 10%=43.1%, BOGO=11.2%, Premium=12.3%
+Episode 10000	Avg Score: 306.31	Eps: 0.100
+  Offer %: No=14.5%, 5%=14.0%, 10%=39.6%, BOGO=13.2%, Premium=18.7%
+Final training completed!
+Final model saved as dqn_customer_agent_final.pth
+Training completed. Running analysis...
+DQNAgent initialized: state_size=5, action_size=5
+Hyperparameters: gamma=0.99, lr=0.0005, update_every=4
+Initializing QNetwork: state_size=5, action_size=5
+Initializing QNetwork: state_size=5, action_size=5
+ReplayBuffer initialized: size=100000, batch=64
+Balanced model loaded successfully!
+
+Testing balanced agent performance on 200 customers...
+DQNAgent initialized: state_size=5, action_size=5
+Hyperparameters: gamma=0.99, lr=0.0005, update_every=4
+Initializing QNetwork: state_size=5, action_size=5
+Initializing QNetwork: state_size=5, action_size=5
+ReplayBuffer initialized: size=100000, batch=64
+Trained model 'dqn_customer_agent_final.pth' loaded successfully!
+
+=== STATE-ACTION PREFERENCE ANALYSIS ===
+
+=== STRATEGY PATTERN ANALYSIS ===
+
+Analyzing High-Value Loyal customer:
+  Offer distribution: {0: 0, 1: 67, 2: 20, 3: 11, 4: 2}
+
+Analyzing Low-Value Inactive customer:
+  Offer distribution: {0: 0, 1: 67, 2: 20, 3: 11, 4: 2}
+
+Analyzing Moderate Customer customer:
+  Offer distribution: {0: 0, 1: 67, 2: 20, 3: 11, 4: 2}
+
+Analyzing High Spender Low Loyalty customer:
+  Offer distribution: {0: 0, 1: 67, 2: 20, 3: 11, 4: 2}
+
+=== SIMULATING HIGH-VALUE CUSTOMER JOURNEY ===
+Step 0: State=[ 0.31943923 66.094345   -1.        ] (Loyalty=0.32, Spend=66, Recency=2.0)
+  -> Action: 2 (10% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.30
+  -> Total Revenue So Far: $0.00
+
+Step 1: State=[ 0.29943922 66.094345    2.        ] (Loyalty=0.30, Spend=66, Recency=3.0)
+  -> Action: 1 (5% Disc)
+  -> Revenue: $67.79, Accepted: True, Loyalty: 0.36
+  -> Total Revenue So Far: $67.79
+
+Step 2: State=[ 0.35943922 66.094345    1.        ] (Loyalty=0.36, Spend=66, Recency=0.0)
+  -> Action: 1 (5% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.34
+  -> Total Revenue So Far: $67.79
+
+Step 3: State=[ 0.3394392 66.094345   1.       ] (Loyalty=0.34, Spend=66, Recency=1.0)
+  -> Action: 2 (10% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.32
+  -> Total Revenue So Far: $67.79
+
+Step 4: State=[ 0.31943923 66.094345    2.        ] (Loyalty=0.32, Spend=66, Recency=2.0)
+  -> Action: 1 (5% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.30
+  -> Total Revenue So Far: $67.79
+
+Step 5: State=[ 0.29943922 66.094345    1.        ] (Loyalty=0.30, Spend=66, Recency=3.0)
+  -> Action: 2 (10% Disc)
+  -> Revenue: $59.48, Accepted: True, Loyalty: 0.36
+  -> Total Revenue So Far: $127.27
+
+Step 6: State=[ 0.35943922 66.094345    2.        ] (Loyalty=0.36, Spend=66, Recency=0.0)
+  -> Action: 1 (5% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.34
+  -> Total Revenue So Far: $127.27
+
+Step 7: State=[ 0.3394392 66.094345   1.       ] (Loyalty=0.34, Spend=66, Recency=1.0)
+  -> Action: 2 (10% Disc)
+  -> Revenue: $59.48, Accepted: True, Loyalty: 0.40
+  -> Total Revenue So Far: $186.76
+
+Step 8: State=[ 0.39943922 66.094345    2.        ] (Loyalty=0.40, Spend=66, Recency=0.0)
+  -> Action: 1 (5% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.38
+  -> Total Revenue So Far: $186.76
+
+Step 9: State=[ 0.37943923 66.094345    1.        ] (Loyalty=0.38, Spend=66, Recency=1.0)
+  -> Action: 2 (10% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.36
+  -> Total Revenue So Far: $186.76
+
+Step 10: State=[ 0.35943922 66.094345    2.        ] (Loyalty=0.36, Spend=66, Recency=2.0)
+  -> Action: 1 (5% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.34
+  -> Total Revenue So Far: $186.76
+
+Step 11: State=[ 0.3394392 66.094345   1.       ] (Loyalty=0.34, Spend=66, Recency=3.0)
+  -> Action: 2 (10% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.32
+  -> Total Revenue So Far: $186.76
+
+
+=== SIMULATING LOW-VALUE CUSTOMER JOURNEY ===
+Step 0: State=[ 0.31943923 66.094345   -1.        ] (Loyalty=0.32, Spend=66, Recency=2.0)
+  -> Action: 2 (10% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.30
+  -> Total Revenue So Far: $0.00
+
+Step 1: State=[ 0.29943922 66.094345    2.        ] (Loyalty=0.30, Spend=66, Recency=3.0)
+  -> Action: 1 (5% Disc)
+  -> Revenue: $67.79, Accepted: True, Loyalty: 0.36
+  -> Total Revenue So Far: $67.79
+
+Step 2: State=[ 0.35943922 66.094345    1.        ] (Loyalty=0.36, Spend=66, Recency=0.0)
+  -> Action: 1 (5% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.34
+  -> Total Revenue So Far: $67.79
+
+Step 3: State=[ 0.3394392 66.094345   1.       ] (Loyalty=0.34, Spend=66, Recency=1.0)
+  -> Action: 2 (10% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.32
+  -> Total Revenue So Far: $67.79
+
+Step 4: State=[ 0.31943923 66.094345    2.        ] (Loyalty=0.32, Spend=66, Recency=2.0)
+  -> Action: 1 (5% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.30
+  -> Total Revenue So Far: $67.79
+
+Step 5: State=[ 0.29943922 66.094345    1.        ] (Loyalty=0.30, Spend=66, Recency=3.0)
+  -> Action: 2 (10% Disc)
+  -> Revenue: $59.48, Accepted: True, Loyalty: 0.36
+  -> Total Revenue So Far: $127.27
+
+Step 6: State=[ 0.35943922 66.094345    2.        ] (Loyalty=0.36, Spend=66, Recency=0.0)
+  -> Action: 1 (5% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.34
+  -> Total Revenue So Far: $127.27
+
+Step 7: State=[ 0.3394392 66.094345   1.       ] (Loyalty=0.34, Spend=66, Recency=1.0)
+  -> Action: 2 (10% Disc)
+  -> Revenue: $59.48, Accepted: True, Loyalty: 0.40
+  -> Total Revenue So Far: $186.76
+
+Step 8: State=[ 0.39943922 66.094345    2.        ] (Loyalty=0.40, Spend=66, Recency=0.0)
+  -> Action: 1 (5% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.38
+  -> Total Revenue So Far: $186.76
+
+Step 9: State=[ 0.37943923 66.094345    1.        ] (Loyalty=0.38, Spend=66, Recency=1.0)
+  -> Action: 2 (10% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.36
+  -> Total Revenue So Far: $186.76
+
+Step 10: State=[ 0.35943922 66.094345    2.        ] (Loyalty=0.36, Spend=66, Recency=2.0)
+  -> Action: 1 (5% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.34
+  -> Total Revenue So Far: $186.76
+
+Step 11: State=[ 0.3394392 66.094345   1.       ] (Loyalty=0.34, Spend=66, Recency=3.0)
+  -> Action: 2 (10% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.32
+  -> Total Revenue So Far: $186.76
+
+
+=== SIMULATING MODERATE CUSTOMER - RECENTLY REJECTED JOURNEY ===
+Step 0: State=[ 0.31943923 66.094345   -1.        ] (Loyalty=0.32, Spend=66, Recency=2.0)
+  -> Action: 2 (10% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.30
+  -> Total Revenue So Far: $0.00
+
+Step 1: State=[ 0.29943922 66.094345    2.        ] (Loyalty=0.30, Spend=66, Recency=3.0)
+  -> Action: 1 (5% Disc)
+  -> Revenue: $67.79, Accepted: True, Loyalty: 0.36
+  -> Total Revenue So Far: $67.79
+
+Step 2: State=[ 0.35943922 66.094345    1.        ] (Loyalty=0.36, Spend=66, Recency=0.0)
+  -> Action: 1 (5% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.34
+  -> Total Revenue So Far: $67.79
+
+Step 3: State=[ 0.3394392 66.094345   1.       ] (Loyalty=0.34, Spend=66, Recency=1.0)
+  -> Action: 2 (10% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.32
+  -> Total Revenue So Far: $67.79
+
+Step 4: State=[ 0.31943923 66.094345    2.        ] (Loyalty=0.32, Spend=66, Recency=2.0)
+  -> Action: 1 (5% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.30
+  -> Total Revenue So Far: $67.79
+
+Step 5: State=[ 0.29943922 66.094345    1.        ] (Loyalty=0.30, Spend=66, Recency=3.0)
+  -> Action: 2 (10% Disc)
+  -> Revenue: $59.48, Accepted: True, Loyalty: 0.36
+  -> Total Revenue So Far: $127.27
+
+Step 6: State=[ 0.35943922 66.094345    2.        ] (Loyalty=0.36, Spend=66, Recency=0.0)
+  -> Action: 1 (5% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.34
+  -> Total Revenue So Far: $127.27
+
+Step 7: State=[ 0.3394392 66.094345   1.       ] (Loyalty=0.34, Spend=66, Recency=1.0)
+  -> Action: 2 (10% Disc)
+  -> Revenue: $59.48, Accepted: True, Loyalty: 0.40
+  -> Total Revenue So Far: $186.76
+
+Step 8: State=[ 0.39943922 66.094345    2.        ] (Loyalty=0.40, Spend=66, Recency=0.0)
+  -> Action: 1 (5% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.38
+  -> Total Revenue So Far: $186.76
+
+Step 9: State=[ 0.37943923 66.094345    1.        ] (Loyalty=0.38, Spend=66, Recency=1.0)
+  -> Action: 2 (10% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.36
+  -> Total Revenue So Far: $186.76
+
+Step 10: State=[ 0.35943922 66.094345    2.        ] (Loyalty=0.36, Spend=66, Recency=2.0)
+  -> Action: 1 (5% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.34
+  -> Total Revenue So Far: $186.76
+
+Step 11: State=[ 0.3394392 66.094345   1.       ] (Loyalty=0.34, Spend=66, Recency=3.0)
+  -> Action: 2 (10% Disc)
+  -> Revenue: $0.00, Accepted: False, Loyalty: 0.32
+  -> Total Revenue So Far: $186.76
+
+All analysis completed!

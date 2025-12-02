@@ -3,9 +3,9 @@
 #SBATCH -n 1
 #SBATCH -c 8
 #SBATCH --mem=32g
-#SBATCH -J "dqn3"
-#SBATCH -o dqn-balanced-%j.out
-#SBATCH -e dqn-balanced-%j.err
+#SBATCH -J "dqn4"
+#SBATCH -o dqn-final-%j.out
+#SBATCH -e dqn-final-%j.err
 #SBATCH -p academic
 #SBATCH -t 48:00:00
 #SBATCH --gres=gpu:1
@@ -21,7 +21,7 @@ conda activate myenv
 
 # Run extended training with 10,000 episodes
 echo "Starting extended training with 10,000 episodes..."
-python scripts/train_balanced.py --episodes 10000 
+python scripts/train_final.py --episodes 10000 
 
 
 # After training, run analysis scripts

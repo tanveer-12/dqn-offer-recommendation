@@ -1,0 +1,27 @@
+Loading python/3.10.12/qlvuph7
+  Loading requirement: bzip2/1.0.8/xipsq2f libmd/1.0.4/sioeueg
+    libbsd/0.11.5/gdafde7 expat/2.4.8/5wnje43 ncurses/6.2/pqxvmoe
+    readline/8.1/52qiwcn gdbm/1.19/hdou4po libiconv/1.16/lr5guq5
+    xz/5.2.5/khdza45 zlib/1.2.12/bsohwcg libxml2/2.9.13/f5kumg5 pigz/2.7/zay4a5o
+    zstd/1.5.2/jvujieu tar/1.34/4cnckqw gettext/0.21/hgt6t5w
+    libffi/3.4.2/svyohlf libxcrypt/4.4.35/biqrzpp openssl/1.1.1o/bowp5gw
+    sqlite/3.38.5/ulzkiln tcl/8.6.12/ulngkxz inputproto/2.3.2/ehtcouq
+    kbproto/1.0.7/aajvfig libpthread-stubs/0.4/wdutvkw xproto/7.0.31/m7j7xxt
+    libxau/1.0.8/lmtxwiy libxdmcp/1.1.2/xwickv3 xcb-proto/1.14.1/6bubljo
+    libxcb/1.14/xc2jukz xextproto/7.3.0/szxn7kg xtrans/1.3.5/r2djpek
+    libx11/1.7.0/hlcc3e6 font-util/1.3.2/y4lcjbr libpng/1.6.37/ylgx3ge
+    freetype/2.11.1/sdrgdog util-linux-uuid/2.37.4/nlecwm6
+    fontconfig/2.13.94/nkgs5p5 renderproto/0.11.1/v7uxryy
+    libxrender/0.9.10/oap5rhe libxft/2.3.2/rs55w2a libxext/1.3.3/hjl3xdk
+    scrnsaverproto/1.2.2/snlsrvz libxscrnsaver/1.2.2/55msjph tk/8.6.11/taob4cd
+Loading miniconda3/25.1.1/24g7bpu
+  Loading requirement: gcc-runtime/13.2.0/s3f7i6x
+Loading cuda/12.9.0/a7ap4jl
+  Loading requirement: libiconv/1.17/43rr47g xz/5.4.6/dnpbdlz
+    zlib-ng/2.1.6/wmsrr57 libxml2/2.10.3/slxho4w
+/home/tfnu/miniconda3/envs/myenv/lib/python3.11/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/tfnu/miniconda3/envs/myenv/lib/python3.11/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/home/tfnu/miniconda3/envs/myenv/lib/python3.11/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]

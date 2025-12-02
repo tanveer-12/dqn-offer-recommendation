@@ -12,7 +12,7 @@ sys.path.append(str(ROOT / "src"))
 from offer_env import CustomerConfig, CustomerOfferEnv
 from offer_env.dqn_agent import DQNAgent
 
-def load_trained_agent(model_file='dqn_customer_agent_balanced.pth'):
+def load_trained_agent():
     """Load the trained agent for visualization with multiple model file options."""
     env = CustomerOfferEnv(CustomerConfig(), seed=42)
     state_size = env.observation_space.shape[0]
@@ -22,7 +22,7 @@ def load_trained_agent(model_file='dqn_customer_agent_balanced.pth'):
     
     # Try different model file names in order of preference
     model_files = [
-        model_file,
+        'dqn_customer_agent_final.pth',
         'dqn_customer_agent_balanced.pth',
         'dqn_customer_agent_improved.pth',
         'dqn_customer_agent.pth'
