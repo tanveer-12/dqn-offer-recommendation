@@ -54,3 +54,20 @@ Both tasks are feasible on standard personal computers or university machines, w
 ● Plots and metrics comparing RL vs. heuristic baselines
 ● A short final report summarizing design, results, and insights
 ● (Optional) A visual demo showing offer recommendations in action
+
+Training a simple DQN agent (baseline)
+- Install deps: `pip install -r requirements.txt`
+- Run training (CPU ok for this env): `python scripts/train_dqn.py --episodes 400`
+- Stability knobs: `--reward-scale 0.01` (default) keeps targets small; `--min-replay` warms up buffer; `--grad-clip` caps exploding gradients
+- Optional: `--device cuda` if available, `--save-path models/dqn.pth` to persist weights (default saves to `models/dqn.pth`)
+- Resume from checkpoint: `python scripts/train_dqn.py --episodes 200 --load-path models/dqn.pth --save-path models/dqn.pth`
+- Rolling average: script prints rolling mean reward over the last N episodes (default 50); adjust via `--rolling-window`
+- Model tweaks: `--double-dqn` (recommended) to reduce overestimation bias; `--hidden-dim 256` to try a wider MLP
+- Keep checkpoints separate per architecture to avoid load errors:
+  - Vanilla example: `--save-path models/dqn_vanilla_128.pth`
+  - Double DQN example: `--save-path models/dqn_double_256.pth`
+- Expect epsilon-greedy exploration that anneals over ~8k steps with a target network synced every 1k steps
+- Greedy eval of a saved agent (epsilon=0): `python scripts/eval_dqn.py --model-path models/dqn.pth --episodes 50 --hidden-dim <train_hidden> [--double-dqn]`
+- Log and plot training metrics:
+  - Enable CSV logging: add `--log-csv logs/train_metrics.csv` to `train_dqn.py`
+  - Plot rewards/loss/acceptance/actions: `python scripts/plot_training.py logs/train_metrics.csv --out training_curve.png`

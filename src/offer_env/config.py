@@ -12,8 +12,8 @@ class CustomerConfig:
     recency_decay: float = 0.35  # controls how quickly interest fades with time since last purchase
     loyalty_gain: float = 0.06  # loyalty increase after an accepted offer
     loyalty_decay: float = 0.02  # loyalty decrease after a rejected offer
-    avg_spend_mean: float = 60.0
-    avg_spend_std: float = 20.0
+    avg_spend_mean: float = 35.0  # typical basket size for a coffee shop
+    avg_spend_std: float = 10.0
     max_recency: int = 30  # clamp for observation scaling
 
     # Offer-specific parameters
