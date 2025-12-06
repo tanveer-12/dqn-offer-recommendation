@@ -4,8 +4,8 @@
 #SBATCH -c 8
 #SBATCH --mem=32g
 #SBATCH -J "dqn4"
-#SBATCH -o dqn-final-%j.out
-#SBATCH -e dqn-final-%j.err
+#SBATCH -o analyze-cafe-1-%j.out
+#SBATCH -e analyze-cafe-1-%j.err
 #SBATCH -p academic
 #SBATCH -t 48:00:00
 #SBATCH --gres=gpu:1
@@ -21,12 +21,6 @@ conda activate myenv
 
 # Run extended training with 10,000 episodes
 echo "Starting extended training with 10,000 episodes..."
-python scripts/train_final.py --episodes 10000 
-
-
-# After training, run analysis scripts
-echo "Training completed. Running analysis..."
-python scripts/analyze_balanced.py
-python scripts/visualize_agent_behavior.py
-
+# python scripts/train_cafe_system.py --episodes 10000 --show_episodes 10000
+python scripts/analyze_cafe_system.py
 echo "All analysis completed!"

@@ -83,39 +83,6 @@ class CustomerOfferEnv(gym.Env):
         info = self._get_info(accepted=accepted, purchase_amount=purchase_amount)
         return obs, float(reward), terminated, truncated, info
 
-    # def _calculate_final_reward(self, action: int, purchase_amount: float, accepted: bool, immediate_revenue: float):
-    #     """Calculate reward with long-term considerations."""
-    #     if not accepted:
-    #         return 0.0  # No immediate reward for rejected offers
-        
-    #     # Base revenue
-    #     reward = immediate_revenue
-        
-    #     # Offer efficiency bonus/penalty
-    #     offer_cost = self.config.offer_cost[action]
-        
-    #     # Penalty for using expensive offers when cheaper ones would work
-    #     if offer_cost > 0.15:  # BOGO or Premium
-    #         # Heavy penalty if customer has low spend or low loyalty
-    #         if self.state.average_spend < 80 or self.state.loyalty_score < 0.4:
-    #             reward -= offer_cost * 100  # Significant penalty
-    #         elif self.state.average_spend < 120 and action == 3:  # BOGO on low-medium value
-    #             reward -= offer_cost * 50  # Medium penalty
-        
-    #     # Bonus for cost-effective offers
-    #     elif action == 0:  # No offer - most profitable
-    #         if self.state.loyalty_score > 0.6:  # High loyalty customers
-    #             reward += 10.0
-    #     elif action == 1:  # 5% discount
-    #         if self.state.average_spend > 50 and self.state.loyalty_score < 0.5:
-    #             reward += 3.0  # Good for moderate customers
-        
-    #     # Loyalty building component
-    #     loyalty_bonus = (self.state.loyalty_score - 0.5) * 15.0  # Bonus for maintaining high loyalty
-    #     reward += max(0, loyalty_bonus)
-        
-    #     return reward
-
     # AFTER DQN 3 BALANCED TRAINING, FOR TRAIN_FINAL TRAINING
     def _calculate_improved_reward(self, action: int, purchase_amount: float, accepted: bool):
         """Improved reward with better cost-effectiveness and customer value focus."""
@@ -131,13 +98,11 @@ class CustomerOfferEnv(gym.Env):
         # Penalty for using expensive offers inappropriately
         penalty = 0.0
         if action == 3 and self.state.loyalty_score > 0.5:  # BOGO for high loyalty
-            penalty = 20.0
-        elif action == 3 and self.state.average_spend < 70:  # BOGO for low spend
-            penalty = 30.0
-        elif action == 4 and self.state.loyalty_score < 0.3:  # Premium for low loyalty
             penalty = 15.0
-        elif action == 2 and self.state.loyalty_score > 0.7:  # 10% for high loyalty
+        elif action == 4 and self.state.loyalty_score < 0.3:  # Premium for low loyalty
             penalty = 10.0
+        elif action == 2 and self.state.loyalty_score > 0.7 and self.state.accepted_last_offer == 1:  # 10% for high loyalty with recent acceptance
+            penalty = 5.0  # Encourage trying different offers
         
         # Bonus for appropriate offer usage
         bonus = 0.0
@@ -147,53 +112,21 @@ class CustomerOfferEnv(gym.Env):
             bonus = 12.0
         elif action == 1 and self.state.loyalty_score < 0.4 and self.state.loyalty_score > 0.2:  # 5% for moderate loyalty
             bonus = 5.0
-        elif action == 3 and self.state.loyalty_score < 0.3 and self.state.recency_of_purchase > 5:  # BOGO for inactive low loyalty
-            bonus = 10.0
+        elif action == 3 and self.state.loyalty_score < 0.3 and self.state.recency_of_purchase > 5:  # BOGO for inactive
+            bonus = 8.0
+        elif action == 1 and self.state.accepted_last_offer == 0:  # Small discount after rejection
+            bonus = 3.0  # Encourage recovery from rejections
         
         # Loyalty building component
         loyalty_bonus = max(0, (self.state.loyalty_score - 0.5) * 10.0)
         
+        # Diversity bonus: penalize repeating same offer too often
+        if self.state.last_offer == action and self.state.accepted_last_offer == 1:
+            penalty += 2.0  # Small penalty for repeating same offer after acceptance
+        
         total_reward = base_revenue - penalty + bonus + loyalty_bonus
         return total_reward
 
-    # def _calculate_cost_penalty(self, action:int, purchase_amount:float):
-    #     """Penalize expensive offers that don't generate sufficient revenue"""
-    #     offer_cost = self.config.offer_cost[action]
-    #     cost_ratio = offer_cost * purchase_amount   # How expensive is this offer relative to purchase
-
-    #     # if the offer cost is too high relative to purchase amount, apply penalty
-    #     if offer_cost > 0.15 and purchase_amount < 80:    # Expensive offers on low-value customers
-    #         return offer_cost * purchase_amount * 0.8
-    #     elif offer_cost > 0.20 and purchase_amount < 120:   # very expensive offers
-    #         return offer_cost * purchase_amount * 1.2
-    #     else:
-    #         return 0.0
-
-    # def _calculate_loyalty_bonus(self):
-    #     """Bonus for building customer loyalty"""
-    #     if self.state is not None:
-    #         # Small bonus for maintaining or increasing loyalty
-    #         loyalty_change = self.config.loyalty_gain if True else -self.config.loyalty_decay
-    #         return loyalty_change * 50.0    # Scale up the loyalty impact
-    #     return 0.0
-
-    # def _calculate_efficiency_bonus(self, action: int, purchase_amount:float):
-    #     """Bonus for using cost-effective offers"""
-    #     offer_cost = self.config.offer_cost[action]
-
-    #     # Bonus for no offer (most profitable) on high-value customers
-    #     if action == 0 and purchase_amount > 100:
-    #         return 10.0
-    #     elif action == 0 and purchase_amount > 50:
-    #         return 5.0
-    #     # Bonus for small discounts(5%) on medium-value customers
-    #     elif action == 1 and purchase_amount > 60:
-    #         return 3.0
-    #     # Bonus for 10% disc when it works well
-    #     elif action == 2 and purchase_amount > 70:
-    #         return 2.0
-    #     else:
-    #         return 0.0
 
     def _did_accept_offer(self, action: int) -> bool:
         """Compute acceptance probability based on offer, loyalty, recency, and average spend."""
