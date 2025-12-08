@@ -57,9 +57,9 @@ def main():
     training_curve = []
     print("\nStarting training loop...")
     print("Format: t=step action=action accepted=accepted revenue=revenue loyalty=loyalty recency=recency")
-    print("=" * 100)
-    for episode in range(1, args.episodes + 1):
-        state, _ = env.reset(seed=args.seed + episode)
+    print("=" * 100)    
+    for episode in range(1, args.episodes + 1):     # 10-000 customers (we trained)
+        state, _ = env.reset(seed=args.seed + episode)      # New customer
         
         # Show detailed logs for first few episodes
         show_detailed = episode <= args.show_episodes
@@ -67,9 +67,9 @@ def main():
         if show_detailed:
             print(f"\nEpisode {episode} (Customer #{episode})")
         
-        score = 0.0
+        score = 0.0     # Total revenue for this customer
         
-        for t in range(args.max_t):
+        for t in range(args.max_t):     # 12 monthly visits
             action = agent.act(state, args.eps_start * (args.eps_decay ** episode))  # Dynamic epsilon
             next_state, reward, terminated, truncated, info = env.step(action)
             done = terminated or truncated

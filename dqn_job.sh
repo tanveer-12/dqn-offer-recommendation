@@ -4,8 +4,8 @@
 #SBATCH -c 8
 #SBATCH --mem=32g
 #SBATCH -J "dqn4"
-#SBATCH -o analyze-cafe-1-%j.out
-#SBATCH -e analyze-cafe-1-%j.err
+#SBATCH -o results-cafe-final-%j.out
+#SBATCH -e results-cafe-final-%j.err
 #SBATCH -p academic
 #SBATCH -t 48:00:00
 #SBATCH --gres=gpu:1

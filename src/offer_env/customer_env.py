@@ -91,7 +91,6 @@ class CustomerOfferEnv(gym.Env):
         
         # Base revenue calculation
         base_revenue = purchase_amount * (1.0 - self.config.offer_cost[action])
-        
         # Cost-effectiveness penalty for expensive offers
         offer_cost = self.config.offer_cost[action]
         
@@ -119,7 +118,6 @@ class CustomerOfferEnv(gym.Env):
         
         # Loyalty building component
         loyalty_bonus = max(0, (self.state.loyalty_score - 0.5) * 10.0)
-        
         # Diversity bonus: penalize repeating same offer too often
         if self.state.last_offer == action and self.state.accepted_last_offer == 1:
             penalty += 2.0  # Small penalty for repeating same offer after acceptance
