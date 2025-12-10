@@ -9,3 +9,4 @@ __pycache__/
 
 # Environment metadata
 .python-version
+dqn_job.sh
