@@ -1,4 +1,4 @@
-# DQN Offer Engine — Demo Guide
+# DQN Offer Engine - Demo Guide
 
 ## How to Run
 
@@ -13,7 +13,7 @@ python api/app.py
 The browser opens `demo/index.html` automatically. The header badge switches from
 **⚠ JS Simulation** (yellow) to **✓ Real Model** (green) when the Flask server is detected.
 
-> You can also open `demo/index.html` directly without the server — it falls back
+> You can also open `demo/index.html` directly without the server - it falls back
 > to a JavaScript approximation of the trained policy.
 
 ---
@@ -33,7 +33,7 @@ The browser opens `demo/index.html` automatically. The header badge switches fro
 
 ---
 
-## Sidebar — Customer Profile
+## Sidebar - Customer Profile
 
 These five sliders define the customer state sent to the model.
 
@@ -69,18 +69,18 @@ These five sliders define the customer state sent to the model.
 
 ---
 
-## Tab 1 — Recommendation
+## Tab 1 - Recommendation
 
 Shows the single-step decision for the current customer state.
 
 ### Agent Decision card
-- **Offer icon + name** — what the DQN chose.
-- **Acceptance Prob.** — probability the customer buys given this offer. Formula:
+- **Offer icon + name** - what the DQN chose.
+- **Acceptance Prob.** - probability the customer buys given this offer. Formula:
   ```
   P = base(0.08) + uplift(offer) + 0.35×loyalty + 0.15×exp(−0.35×recency) + spend_bonus
   ```
-- **Expected Revenue** — `spend × (1 − offer_cost) × acceptance_prob`.
-- **Agent Reasoning** — plain-English explanation of *why* the agent picked this action,
+- **Expected Revenue** - `spend × (1 − offer_cost) × acceptance_prob`.
+- **Agent Reasoning** - plain-English explanation of *why* the agent picked this action,
   derived from the Q-value shaping signals.
 
 ### Q-Value Distribution card
@@ -94,7 +94,7 @@ Table of all five offers with acceptance probability and expected revenue side b
 
 ---
 
-## Tab 2 — 12-Month Journey (Simulation)
+## Tab 2 - 12-Month Journey (Simulation)
 
 ### How the simulation works step by step
 
@@ -117,7 +117,7 @@ Month 1:
 Repeat for months 2–12 using updated state.
 ```
 
-The simulation is **stochastic** — same inputs can produce different outcomes across runs
+The simulation is **stochastic** - same inputs can produce different outcomes across runs
 because acceptance is a random draw against the probability.
 
 ### Summary stats (top row)
@@ -129,8 +129,8 @@ because acceptance is a random draw against the probability.
 | Offer Mix | Which offer type dominated |
 
 ### Charts
-- **Loyalty Trajectory** — how loyalty evolves month by month.
-- **Cumulative Revenue** — running total revenue, shows growth rate.
+- **Loyalty Trajectory** - how loyalty evolves month by month.
+- **Cumulative Revenue** - running total revenue, shows growth rate.
 
 ### Decision Log
 Month-by-month table: offer sent, accepted/rejected (green/red), revenue earned,
@@ -138,10 +138,10 @@ loyalty at that point.
 
 ---
 
-## Tab 3 — Rule-Based vs DQN
+## Tab 3 - Rule-Based vs DQN
 
 ### Rule-based policy (left card)
-Static if/else logic — the kind most businesses currently use:
+Static if/else logic - the kind most businesses currently use:
 ```
 if recency > 14  → BOGO
 elif loyalty > 0.7 → Premium
@@ -151,7 +151,7 @@ else              → BOGO
 
 ### DQN policy (right card)
 Emergent behaviours the agent discovered that rules cannot express:
-- **No offer** for champion customers (saves margin — they'll buy anyway).
+- **No offer** for champion customers (saves margin - they'll buy anyway).
 - **Premium** for at-risk loyals (locks in lifetime value).
 - **Small discount** right after a rejection (avoids pushing harder = churn risk).
 
@@ -161,7 +161,7 @@ cumulative revenue side by side. The "DQN Advantage" stat is `DQN revenue − ru
 
 ---
 
-## Tab 4 — Emergent Insights
+## Tab 4 - Emergent Insights
 
 Static analysis panels showing what the trained agent has learned across thousands
 of customer profiles:
@@ -206,13 +206,13 @@ of customer profiles:
 
 | Endpoint | Method | Body | Returns |
 |----------|--------|------|---------|
-| `/health` | GET | — | `{ status, model }` |
+| `/health` | GET | - | `{ status, model }` |
 | `/predict` | POST | `{ loyalty, spend, recency, accepted?, last_offer? }` | `{ action, offer, q_values[5], accept_probs[5], exp_revenues[5] }` |
 | `/simulate` | POST | same + `{ rule_based?: bool }` | `{ timeline[12], loyalty_history, revenue_history, total_revenue, total_accepted, offer_counts, final_loyalty }` |
 
 ---
 
-## Suggested Next Feature — Offer Budget Cap
+## Suggested Next Feature - Offer Budget Cap
 
 > **Real-world feature businesses actually need:**
 >
