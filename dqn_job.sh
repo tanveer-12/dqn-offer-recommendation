@@ -1,0 +1,26 @@
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -c 8
+#SBATCH --mem=32g
+#SBATCH -J "dqn4"
+#SBATCH -o results-cafe-final-%j.out
+#SBATCH -e results-cafe-final-%j.err
+#SBATCH -p academic
+#SBATCH -t 48:00:00
+#SBATCH --gres=gpu:1
+
+module load python/3.10.12
+module load miniconda3
+module load cuda
+
+cd /home/tfnu/RL-PersonalizedOfferRecommendation
+
+source /home/tfnu/miniconda3/etc/profile.d/conda.sh
+conda activate myenv
+
+# Run extended training with 10,000 episodes
+echo "Starting extended training with 10,000 episodes..."
+# python scripts/train_cafe_system.py --episodes 10000 --show_episodes 10000
+python scripts/analyze_cafe_system.py
+echo "All analysis completed!"
