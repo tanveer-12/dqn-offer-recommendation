@@ -32,7 +32,7 @@
     --warn: #d97706;
     --danger: #dc2626;
     --text: #1e293b;
-    --muted: #94a3b8;
+    --muted: #475569;
     --card-glow: 0 0 0 1px var(--border), 0 4px 24px rgba(37,99,235,0.07);
   }
 
@@ -96,7 +96,7 @@
     font-size: 15px;
     font-weight: 700;
     letter-spacing: -0.3px;
-    color: #fff;
+    color: var(--text);
   }
   .logo-sub {
     font-size: 11px;
@@ -316,7 +316,7 @@
   .offer-name {
     font-size: 22px;
     font-weight: 800;
-    color: #fff;
+    color: var(--text);
     margin-bottom: 4px;
   }
   .offer-desc {
@@ -378,7 +378,7 @@
   .stat-value {
     font-size: 20px;
     font-weight: 800;
-    color: #fff;
+    color: var(--text);
   }
   .stat-delta {
     font-size: 10px;
@@ -462,7 +462,7 @@
     align-items: flex-start;
   }
   .insight-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
-  .insight-title { font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .insight-title { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
   .insight-body { font-size: 11px; color: var(--muted); line-height: 1.6; }
 
   /* ── Comparison table ── */
@@ -570,7 +570,7 @@
     align-items: center;
     justify-content: center;
   }
-  .score-ring-num { font-size: 18px; font-weight: 800; color: #fff; }
+  .score-ring-num { font-size: 18px; font-weight: 800; color: var(--text); }
   .score-ring-label { font-size: 8px; color: var(--muted); letter-spacing: 0.5px; }
 
   #running-badge {
@@ -982,6 +982,19 @@
 
 <script>
 // ════════════════════════════════════════
+//  CHART COLOR HELPER  (reads live CSS vars so charts match current theme)
+// ════════════════════════════════════════
+function chartColors() {
+  const s = getComputedStyle(document.documentElement);
+  return {
+    grid:   s.getPropertyValue('--border').trim() || '#1e2d45',
+    ticks:  s.getPropertyValue('--muted').trim()  || '#64748b',
+    bg:     s.getPropertyValue('--bg').trim()      || '#0a0e17',
+    legend: s.getPropertyValue('--muted').trim()   || '#94a3b8',
+  };
+}
+
+// ════════════════════════════════════════
 //  THEME TOGGLE
 // ════════════════════════════════════════
 (function() {
@@ -1008,9 +1021,21 @@ function toggleTheme() {
     icon.textContent = '☀️'; label.textContent = 'Light';
     localStorage.setItem('dqn-theme', 'dark');
   }
-  // Redraw Chart.js charts to pick up new color variables
-  [qChart, loyaltyChartInst, revenueChartInst, compareChartInst, offerDistChartInst, acceptanceChartInst]
-    .forEach(c => c && c.update());
+  // Update scale/legend colors for all line & bar charts
+  const cc = chartColors();
+  [qChart, loyaltyChartInst, revenueChartInst, compareChartInst, acceptanceChartInst].forEach(c => {
+    if (!c) return;
+    ['x', 'y'].forEach(axis => {
+      if (c.options.scales?.[axis]) {
+        c.options.scales[axis].grid.color  = cc.grid;
+        c.options.scales[axis].ticks.color = cc.ticks;
+      }
+    });
+    if (c.options.plugins?.legend?.labels) c.options.plugins.legend.labels.color = cc.legend;
+    c.update();
+  });
+  // Doughnut border colour is in the dataset; recreate insight charts
+  if (offerDistChartInst) renderInsights();
 }
 
 // ════════════════════════════════════════
@@ -1296,8 +1321,8 @@ async function renderRecommendation() {
       responsive: true, maintainAspectRatio: false,
       plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ' Q = ' + ctx.raw.toFixed(2) } } },
       scales: {
-        x: { grid: { color: '#1e2d45' }, ticks: { color: '#64748b', font: { size: 9 } } },
-        y: { grid: { color: '#1e2d45' }, ticks: { color: '#64748b', font: { size: 9 } } },
+        x: { grid: { color: chartColors().grid }, ticks: { color: chartColors().ticks, font: { size: 9 } } },
+        y: { grid: { color: chartColors().grid }, ticks: { color: chartColors().ticks, font: { size: 9 } } },
       }
     }
   });
@@ -1433,7 +1458,7 @@ function renderSimulation(result) {
         tension: 0.4,
         pointRadius: 4,
         pointBackgroundColor: loyaltyHistory.map(v => v > 0.6 ? '#10b981' : v > 0.4 ? '#3b82f6' : '#ef4444'),
-        pointBorderColor: '#0a0e17',
+        pointBorderColor: chartColors().bg,
         pointBorderWidth: 2,
       }]
     },
@@ -1485,15 +1510,16 @@ function renderSimulation(result) {
 }
 
 function chartOpts({ yMin, yMax, yLabel } = {}) {
+  const cc = chartColors();
   return {
     responsive: true, maintainAspectRatio: false,
     plugins: { legend: { display: false } },
     scales: {
-      x: { grid: { color: '#1e2d45' }, ticks: { color: '#64748b', font: { size: 10 } } },
+      x: { grid: { color: cc.grid }, ticks: { color: cc.ticks, font: { size: 10 } } },
       y: {
         min: yMin, max: yMax,
-        grid: { color: '#1e2d45' },
-        ticks: { color: '#64748b', font: { size: 10 }, callback: v => yLabel === 'Loyalty' ? v.toFixed(1) : '$' + Math.round(v) }
+        grid: { color: cc.grid },
+        ticks: { color: cc.ticks, font: { size: 10 }, callback: v => yLabel === 'Loyalty' ? v.toFixed(1) : '$' + Math.round(v) }
       }
     }
   };
@@ -1575,11 +1601,11 @@ document.getElementById('btn-compare').addEventListener('click', async () => {
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: {
-        legend: { labels: { color: '#94a3b8', font: { size: 11 }, boxWidth: 20 } }
+        legend: { labels: { color: chartColors().legend, font: { size: 11 }, boxWidth: 20 } }
       },
       scales: {
-        x: { grid: { color: '#1e2d45' }, ticks: { color: '#64748b', font: { size: 10 } } },
-        y: { grid: { color: '#1e2d45' }, ticks: { color: '#64748b', font: { size: 10 }, callback: v => '$' + Math.round(v) } }
+        x: { grid: { color: chartColors().grid }, ticks: { color: chartColors().ticks, font: { size: 10 } } },
+        y: { grid: { color: chartColors().grid }, ticks: { color: chartColors().ticks, font: { size: 10 }, callback: v => '$' + Math.round(v) } }
       }
     }
   });
@@ -1635,14 +1661,14 @@ function renderInsights() {
       datasets: [{
         data: counts,
         backgroundColor: ['#475569','#3b82f6','#8b5cf6','#ef4444','#10b981'],
-        borderColor: '#0a0e17',
+        borderColor: chartColors().bg,
         borderWidth: 3,
       }]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: {
-        legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 12, boxWidth: 14 } }
+        legend: { position: 'bottom', labels: { color: chartColors().legend, font: { size: 10 }, padding: 12, boxWidth: 14 } }
       }
     }
   });
@@ -1678,8 +1704,8 @@ function renderInsights() {
       responsive: true, maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: {
-        x: { grid: { color: '#1e2d45' }, ticks: { color: '#64748b', font: { size: 10 } } },
-        y: { grid: { color: '#1e2d45' }, ticks: { color: '#64748b', font: { size: 10 }, callback: v => v + '%' }, max: 80 }
+        x: { grid: { color: chartColors().grid }, ticks: { color: chartColors().ticks, font: { size: 10 } } },
+        y: { grid: { color: chartColors().grid }, ticks: { color: chartColors().ticks, font: { size: 10 }, callback: v => v + '%' }, max: 80 }
       }
     }
   });
