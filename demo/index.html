@@ -21,6 +21,39 @@
     --card-glow: 0 0 0 1px var(--border), 0 4px 24px rgba(59,130,246,0.06);
   }
 
+  :root.light {
+    --bg: #f1f5f9;
+    --surface: #ffffff;
+    --surface2: #f8fafc;
+    --border: #e2e8f0;
+    --accent: #2563eb;
+    --accent2: #7c3aed;
+    --accent3: #059669;
+    --warn: #d97706;
+    --danger: #dc2626;
+    --text: #1e293b;
+    --muted: #94a3b8;
+    --card-glow: 0 0 0 1px var(--border), 0 4px 24px rgba(37,99,235,0.07);
+  }
+
+  /* Theme toggle button */
+  .theme-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+    font-weight: 600;
+  }
+  .theme-btn:hover { background: var(--border); }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
@@ -592,6 +625,10 @@
     <span class="badge badge-yellow" id="model-badge" title="Start api/app.py to use real model weights">⚠ JS Simulation</span>
     <span class="badge badge-blue">PyTorch · DQN</span>
     <span class="badge badge-purple">10K Customers Trained</span>
+    <button class="theme-btn" id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode">
+      <span id="theme-icon">☀️</span>
+      <span id="theme-label">Light</span>
+    </button>
   </div>
 </header>
 
@@ -944,6 +981,38 @@
 </div><!-- /layout -->
 
 <script>
+// ════════════════════════════════════════
+//  THEME TOGGLE
+// ════════════════════════════════════════
+(function() {
+  const saved = localStorage.getItem('dqn-theme');
+  if (saved === 'light') applyLight();
+})();
+
+function applyLight() {
+  document.documentElement.classList.add('light');
+  const icon = document.getElementById('theme-icon');
+  const label = document.getElementById('theme-label');
+  if (icon) { icon.textContent = '🌙'; label.textContent = 'Dark'; }
+}
+
+function toggleTheme() {
+  const root = document.documentElement;
+  const isLight = root.classList.toggle('light');
+  const icon = document.getElementById('theme-icon');
+  const label = document.getElementById('theme-label');
+  if (isLight) {
+    icon.textContent = '🌙'; label.textContent = 'Dark';
+    localStorage.setItem('dqn-theme', 'light');
+  } else {
+    icon.textContent = '☀️'; label.textContent = 'Light';
+    localStorage.setItem('dqn-theme', 'dark');
+  }
+  // Redraw Chart.js charts to pick up new color variables
+  [qChart, loyaltyChartInst, revenueChartInst, compareChartInst, offerDistChartInst, acceptanceChartInst]
+    .forEach(c => c && c.update());
+}
+
 // ════════════════════════════════════════
 //  API CONNECTION
 // ════════════════════════════════════════

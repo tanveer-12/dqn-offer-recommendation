@@ -5,6 +5,8 @@ Run: python api/app.py
 
 import sys
 import os
+import threading
+import webbrowser
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 import numpy as np
@@ -191,5 +193,10 @@ def _rule_based(loyalty, recency):
 
 
 if __name__ == "__main__":
-    print("[API] Starting on http://localhost:5000")
+    demo_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'demo', 'index.html'))
+    demo_url = f'file:///{demo_path.replace(os.sep, "/")}'
+    print(f"[API] Starting on http://localhost:5000")
+    print(f"[API] Opening demo: {demo_url}")
+    # Open after a short delay so Flask is ready before the browser loads
+    threading.Timer(1.2, lambda: webbrowser.open(demo_url)).start()
     app.run(debug=False, port=5000)
