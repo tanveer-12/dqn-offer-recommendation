@@ -4,7 +4,7 @@
 
 A Deep Reinforcement Learning system that learns **which offer to send to which customer, at the right time** — trained on 10,000 simulated café customers and served through a live interactive dashboard.
 
-Built by **Tanveer Kaur & Davud Azizov**
+Built by **Tanveer Kaur**
 
 ---
 
@@ -31,8 +31,7 @@ This project replaces that with a **Deep Q-Network (DQN)** — an AI agent that 
 <!-- Suggested: screen recording of dashboard → adjust sliders → Get Recommendation → Run 12-Month Simulation -->
 
 ```
-[ 📹 VIDEO PLACEHOLDER ]
-Drop a screen recording of the demo dashboard here.
+(demo/offer-2.mp4)
 ```
 
 ---
@@ -47,7 +46,7 @@ Drop a screen recording of the demo dashboard here.
 <!-- Suggested filename: screenshots/recommendation_panel.png -->
 
 ```
-[ 🖼️ IMAGE PLACEHOLDER — Main Recommendation Window ]
+![Dashboard](demo/offer-1.png)
 ```
 
 ---
@@ -60,7 +59,7 @@ Drop a screen recording of the demo dashboard here.
 <!-- Suggested filename: screenshots/comparison_panel.png -->
 
 ```
-[ 🖼️ IMAGE PLACEHOLDER — Rule-Based vs DQN Comparison ]
+![Static Vs DQN](demo/offer-3.png)
 ```
 
 ---
