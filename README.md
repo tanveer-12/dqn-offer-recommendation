@@ -1,8 +1,8 @@
 # ⚡ DQN Offer Engine
 
-> *"What if instead of a tired marketing intern blindly sending everyone a 10% coupon, a neural network did it — but smarter, cheaper, and without needing coffee?"*
+> *"What if instead of a tired marketing intern blindly sending everyone a 10% coupon, a neural network did it - but smarter, cheaper, and without needing coffee?"*
 
-A Deep Reinforcement Learning system that learns **which offer to send to which customer, at the right time** — trained on 10,000 simulated café customers and served through a live interactive dashboard.
+A Deep Reinforcement Learning system that learns **which offer to send to which customer, at the right time** - trained on 10,000 simulated café customers and served through a live interactive dashboard.
 
 Built by **Tanveer Kaur**
 
@@ -18,7 +18,7 @@ Picture your local café's marketing strategy right now:
 
 Yeah. That's it. That's the whole strategy.
 
-This project replaces that with a **Deep Q-Network (DQN)** — an AI agent that actually *thinks* about whether you deserve a coupon, or whether you'd have bought that latte anyway (in which case, why waste the budget?).
+This project replaces that with a **Deep Q-Network (DQN)** - an AI agent that actually *thinks* about whether you deserve a coupon, or whether you'd have bought that latte anyway (in which case, why waste the budget?).
 
 ---
 
@@ -26,47 +26,32 @@ This project replaces that with a **Deep Q-Network (DQN)** — an AI agent that 
 
 > **Recommendation Demo**
 
-<!-- PLACEHOLDER: Video showing recommendation in action -->
-<!-- Replace the block below with your actual video embed or GIF -->
-<!-- Suggested: screen recording of dashboard → adjust sliders → Get Recommendation → Run 12-Month Simulation -->
-
-```
-(demo/offer-2.mp4)
-```
+![Demo](demo/offer-4.gif)
 
 ---
 
 ## 📸 Screenshots
 
-### The Dashboard — Recommendation Mode
+### The Dashboard - Recommendation Mode
 
 > Adjust customer sliders, hit the button, watch the AI decide whether you deserve a coupon.
 
-<!-- PLACEHOLDER: Screenshot of the main recommendation window -->
-<!-- Suggested filename: screenshots/recommendation_panel.png -->
-
-```
 ![Dashboard](demo/offer-1.png)
-```
 
 ---
 
-### The Showdown — Rule-Based vs. DQN
+### The Showdown - Rule-Based vs. DQN
 
 > Spoiler: the AI wins. But seeing *why* it wins is the interesting part.
 
-<!-- PLACEHOLDER: Screenshot of the Rule-Based vs DQN comparison tab -->
-<!-- Suggested filename: screenshots/comparison_panel.png -->
 
-```
 ![Static Vs DQN](demo/offer-3.png)
-```
 
 ---
 
 ## 🧠 What's Actually Going On Here?
 
-The agent learns by playing a game — repeatedly.
+The agent learns by playing a game - repeatedly.
 
 **The game:**
 1. A customer shows up with a loyalty score, spending habit, and days since their last visit
@@ -81,7 +66,7 @@ After training, the agent has learned things no human bothered to write down:
 |-----------|-------------------------------------|------------------------|
 | Super loyal, visits daily | "Give them Premium!" | "They'll buy anyway. Send nothing. Save the money." |
 | Loyal but hasn't visited in 3 weeks | "Give them Premium!" | "They're drifting. Premium now locks them back in." |
-| Low loyalty, hasn't visited in ages | "Give them BOGO!" | Also BOGO — but for the *right* reason, with the *right* timing |
+| Low loyalty, hasn't visited in ages | "Give them BOGO!" | Also BOGO - but for the *right* reason, with the *right* timing |
 | Customer just rejected your last offer | "Try a bigger discount!" | "Calm down. Small nudge. Don't push harder." |
 
 ---
@@ -96,7 +81,7 @@ After training, the agent has learned things no human bothered to write down:
 | 3 | 🎁 BOGO | 25% | A very aggressive nudge |
 | 4 | ⭐ Premium Membership | 22% | "We're in a relationship now" |
 
-The agent's job is to pick the one that **maximizes money over 12 months** — not just today. This is the key difference from a rule-based system, which optimizes for "did they click the coupon" and calls it a day.
+The agent's job is to pick the one that **maximizes money over 12 months** - not just today. This is the key difference from a rule-based system, which optimizes for "did they click the coupon" and calls it a day.
 
 ---
 
@@ -127,7 +112,7 @@ dqn-offer-recommendation/
 │
 ├── demo/
 │   ├── index.html                ← The interactive dashboard (open this)
-│   └── DEMO_GUIDE.md             ← "What does this button do?" — answered
+│   └── DEMO_GUIDE.md             ← "What does this button do?" - answered
 │
 ├── models/
 │   ├── cafe_recommendation_model.pth  ← The trained model (the star)
@@ -142,19 +127,19 @@ dqn-offer-recommendation/
 
 ## 🚀 Quick Start
 
-**Step 1 — Install dependencies**
+**Step 1 - Install dependencies**
 ```bash
 pip install torch gymnasium numpy matplotlib flask flask-cors
 ```
 
-**Step 2 — Start the demo** *(browser opens automatically)*
+**Step 2 - Start the demo** *(browser opens automatically)*
 ```bash
 python api/app.py
 ```
 
 That's it. The dashboard opens in your browser. The header badge turns green when it's talking to the real model.
 
-> No server running? The demo still works — it falls back to a JavaScript approximation of the trained policy. Slightly less accurate, equally fun to play with.
+> No server running? The demo still works - it falls back to a JavaScript approximation of the trained policy. Slightly less accurate, equally fun to play with.
 
 ---
 
@@ -186,9 +171,9 @@ Q(state, action) = immediate reward + 0.99 × (best possible future reward)
 
 Translation: *"Is this coupon worth sending right now, considering what might happen over the next 11 months?"*
 
-The `0.99` (gamma) means the agent cares a lot about the future — not as much as the present, but enough to plan ahead. An agent with gamma = `0.0` would be a YOLO machine. An agent with gamma = `0.99` thinks like a business owner.
+The `0.99` (gamma) means the agent cares a lot about the future - not as much as the present, but enough to plan ahead. An agent with gamma = `0.0` would be a YOLO machine. An agent with gamma = `0.99` thinks like a business owner.
 
-**Double DQN** is used to stop the agent from getting overconfident — it uses two networks: one to pick the best action, another to calmly evaluate how good that action actually is. It's the AI equivalent of asking for a second opinion before sending everyone a BOGO.
+**Double DQN** is used to stop the agent from getting overconfident - it uses two networks: one to pick the best action, another to calmly evaluate how good that action actually is. It's the AI equivalent of asking for a second opinion before sending everyone a BOGO.
 
 ---
 
@@ -214,7 +199,7 @@ Month 12
   → Show everything on the dashboard
 ```
 
-Each run is slightly different because customer acceptance is stochastic — same inputs, different luck. Run it a few times on the same customer to see the variance.
+Each run is slightly different because customer acceptance is stochastic - same inputs, different luck. Run it a few times on the same customer to see the variance.
 
 ---
 
@@ -230,9 +215,9 @@ else:                return BOGO      # low loyalty fallback
 ```
 
 It's not *wrong*. It's just *static*. It doesn't know that:
-- A highly loyal customer with high recency doesn't need BOGO — they need nothing
+- A highly loyal customer with high recency doesn't need BOGO - they need nothing
 - A customer who just rejected your last offer is not impressed by a bigger discount
-- Some customers are only worth a 5% nudge — sending BOGO to them is just giving money away
+- Some customers are only worth a 5% nudge - sending BOGO to them is just giving money away
 
 The DQN figured all of this out by playing the simulation 10,000 times.
 
@@ -244,7 +229,7 @@ The DQN figured all of this out by playing the simulation 10,000 times.
 |---------|-------|--------------------|
 | `loyalty_score` | 0.0 – 1.0 | How attached is this customer? Grows when they accept offers, shrinks when they don't |
 | `avg_spend` | $10 – $200 | How much do they typically spend per visit |
-| `recency` | 0 – 30 days | Days since last visit — the "are they drifting?" signal |
+| `recency` | 0 – 30 days | Days since last visit - the "are they drifting?" signal |
 | `accepted_last_offer` | 0 or 1 | Did they take the last coupon? Context for the next decision |
 | `last_offer` | -1 to 4 | What was the last offer sent? Prevents the agent from being repetitive |
 
@@ -270,7 +255,7 @@ No overengineering. No Kubernetes. No blockchain. Just a neural network, a fake 
 After training on 10,000 customer episodes with Double DQN:
 
 - The agent consistently outperforms the rule-based baseline in head-to-head 12-month simulations
-- It discovered the **"no offer"** strategy for champion customers entirely on its own — this was never explicitly programmed
+- It discovered the **"no offer"** strategy for champion customers entirely on its own - this was never explicitly programmed
 - It learned to send smaller offers after rejections rather than escalating (which is what the rules do)
 - Final loyalty scores are higher on average compared to rule-based, because the agent invests in the relationship rather than just chasing the immediate transaction
 
@@ -278,7 +263,7 @@ After training on 10,000 customer episodes with Double DQN:
 
 ## 💡 Suggested Next Feature
 
-> **Offer Budget Capping** — the thing every real business actually needs.
+> **Offer Budget Capping** - the thing every real business actually needs.
 >
 > Set a daily spend ceiling (e.g. $500/day in discount value). Once the budget is hit, the API forces `action = 0` (No Offer) regardless of what the model wants. Prevents the agent from being generous with someone else's money.
 >
@@ -288,7 +273,7 @@ After training on 10,000 customer episodes with Double DQN:
 
 ## 📄 License
 
-MIT — take it, break it, make it sell more coffee.
+MIT - take it, break it, make it sell more coffee.
 
 ---
 
